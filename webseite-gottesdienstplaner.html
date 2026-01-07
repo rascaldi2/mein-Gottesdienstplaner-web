@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mein Gottesdienstplaner – Gottesdienste einfach planen</title>
+    <meta name="description" content="Der Gottesdienstplaner hilft Ihnen bei der Planung von Gottesdiensten, Liedauswahl und Ablaufgestaltung.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fafafa;
+        }
+
+        /* Navigation */
+        nav {
+            background: #fff;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2c5282;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #e07a38;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #2c5282;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #2c5282 0%, #3d7cb8 100%);
+            color: #fff;
+            padding: 8rem 2rem 5rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.95;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-primary {
+            background: #e07a38;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(224, 122, 56, 0.4);
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: #2c5282;
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #2c5282;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: #2c5282;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: #666;
+        }
+
+        /* Screenshots */
+        .screenshots {
+            background: #fff;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .screenshot-placeholder {
+            background: linear-gradient(135deg, #e8f0f7 0%, #d4e3f0 100%);
+            border-radius: 12px;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b8cae;
+            font-size: 1.1rem;
+            border: 2px dashed #b8cfdf;
+        }
+
+        /* Download */
+        .download {
+            background: linear-gradient(135deg, #f7f9fc 0%, #eef3f8 100%);
+            text-align: center;
+        }
+
+        .download-box {
+            background: #fff;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .download-box h3 {
+            font-size: 1.8rem;
+            color: #2c5282;
+            margin-bottom: 1rem;
+        }
+
+        .system-req {
+            text-align: left;
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .system-req h4 {
+            color: #2c5282;
+            margin-bottom: 0.5rem;
+        }
+
+        .system-req ul {
+            list-style: none;
+            color: #666;
+        }
+
+        .system-req li::before {
+            content: "✓ ";
+            color: #38a169;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .copyright {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        /* Impressum Page Section */
+        .legal-content {
+            background: #fff;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .legal-content h2 {
+            color: #2c5282;
+            margin-bottom: 1.5rem;
+        }
+
+        .legal-content h3 {
+            color: #2c5282;
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .placeholder-notice {
+            background: #fef3cd;
+            border: 1px solid #ffc107;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            color: #856404;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Mein <span>Gottesdienstplaner</span></a>
+            <ul class="nav-links">
+                <li><a href="#funktionen">Funktionen</a></li>
+                <li><a href="#screenshots">Screenshots</a></li>
+                <li><a href="#download">Download</a></li>
+                <li><a href="#impressum">Impressum</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Gottesdienste einfach planen</h1>
+        <p>Der Gottesdienstplaner unterstützt Sie bei der Planung Ihrer Gottesdienste – von der Liedauswahl bis zum fertigen Ablaufplan.</p>
+        <a href="#download" class="btn btn-primary">Jetzt herunterladen</a>
+        <a href="#funktionen" class="btn btn-secondary">Mehr erfahren</a>
+    </section>
+
+    <!-- Funktionen -->
+    <section id="funktionen">
+        <h2 class="section-title">Funktionen</h2>
+        <p class="section-subtitle">Alles was Sie für die Gottesdienstplanung brauchen – in einer übersichtlichen Anwendung.</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📅</div>
+                <h3>Gottesdienste verwalten</h3>
+                <p>Legen Sie Gottesdienste an mit Datum, Uhrzeit, Ort und Gottesdienstart. Behalten Sie den Überblick über alle geplanten Veranstaltungen.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎵</div>
+                <h3>Liedauswahl</h3>
+                <p>Wählen Sie Lieder aus dem Evangelischen Gesangbuch oder eigenen Liederbüchern. Mit Strophenauswahl und Vorschau.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⛪</div>
+                <h3>Kirchenjahr</h3>
+                <p>Alle Sonn- und Feiertage des Kirchenjahres sind hinterlegt – mit automatischer Berechnung der beweglichen Feste.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🖨️</div>
+                <h3>Druckausgabe</h3>
+                <p>Erstellen Sie übersichtliche Ablaufpläne für Pastor, Organist und Küster – fertig zum Ausdrucken.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Stammdaten</h3>
+                <p>Verwalten Sie Gottesdienstorte, Mitarbeiter, Künstler und Gesangbücher an einem zentralen Ort.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Suche</h3>
+                <p>Finden Sie schnell Lieder, Gottesdienste oder Personen mit der integrierten Suchfunktion.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots -->
+    <section id="screenshots" class="screenshots">
+        <h2 class="section-title">Screenshots</h2>
+        <p class="section-subtitle">So sieht der Gottesdienstplaner in Aktion aus.</p>
+        
+        <div class="screenshot-grid">
+            <div class="screenshot-placeholder">
+                📷 Screenshot: Hauptfenster
+            </div>
+            <div class="screenshot-placeholder">
+                📷 Screenshot: Liedauswahl
+            </div>
+            <div class="screenshot-placeholder">
+                📷 Screenshot: Gottesdienst-Planung
+            </div>
+            <div class="screenshot-placeholder">
+                📷 Screenshot: Druckvorschau
+            </div>
+        </div>
+    </section>
+
+    <!-- Download -->
+    <section id="download" class="download">
+        <h2 class="section-title">Download</h2>
+        <p class="section-subtitle">Laden Sie den Gottesdienstplaner kostenlos herunter.</p>
+        
+        <div class="download-box">
+            <h3>Gottesdienstplaner 1.0</h3>
+            <p>Die aktuelle Version für Windows</p>
+            
+            <div class="system-req">
+                <h4>Systemvoraussetzungen</h4>
+                <ul>
+                    <li>Windows 10 oder Windows 11</li>
+                    <li>.NET 9.0 Desktop Runtime</li>
+                    <li>MariaDB 10.5 oder höher</li>
+                    <li>50 MB freier Speicherplatz</li>
+                </ul>
+            </div>
+            
+            <a href="https://github.com/DEIN-USERNAME/gottesdienstplaner-updates/releases" class="btn btn-primary" target="_blank">
+                Download (Setup.exe)
+            </a>
+            <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">
+                Version 1.0.0 – Dezember 2025
+            </p>
+        </div>
+    </section>
+
+    <!-- Impressum -->
+    <section id="impressum">
+        <div class="legal-content">
+            <h2>Impressum</h2>
+            
+            <div class="placeholder-notice">
+                ⚠️ <strong>Platzhalter:</strong> Bitte mit Ihren echten Angaben ersetzen!
+            </div>
+            
+            <h3>Angaben gemäß § 5 TMG</h3>
+            <p>
+                Max Mustermann<br>
+                Musterstraße 123<br>
+                12345 Musterstadt
+            </p>
+            
+            <h3>Kontakt</h3>
+            <p>
+                E-Mail: info@mein-gottesdienstplaner.de
+            </p>
+            
+            <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
+            <p>
+                Max Mustermann<br>
+                Musterstraße 123<br>
+                12345 Musterstadt
+            </p>
+            
+            <h2 style="margin-top: 3rem;">Datenschutzerklärung</h2>
+            
+            <div class="placeholder-notice">
+                ⚠️ <strong>Platzhalter:</strong> Bitte mit einer vollständigen Datenschutzerklärung ersetzen!
+            </div>
+            
+            <h3>1. Datenschutz auf einen Blick</h3>
+            <p>
+                Diese Website erhebt keine personenbezogenen Daten. Es werden keine Cookies gesetzt 
+                und keine Tracking-Tools verwendet.
+            </p>
+            
+            <h3>2. Hosting</h3>
+            <p>
+                Diese Website wird bei [Hosting-Anbieter] gehostet. 
+                Details zum Datenschutz des Hosting-Anbieters finden Sie in dessen Datenschutzerklärung.
+            </p>
+            
+            <h3>3. Externe Links</h3>
+            <p>
+                Diese Website enthält Links zu GitHub für den Download der Software. 
+                Für die Inhalte und den Datenschutz externer Websites sind deren Betreiber verantwortlich.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#impressum">Impressum</a>
+                <a href="#impressum">Datenschutz</a>
+            </div>
+            <p class="copyright">© 2025 Mein Gottesdienstplaner. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
